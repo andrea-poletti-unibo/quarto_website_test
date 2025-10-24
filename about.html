@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Analisi Dati con R e Quarto - About</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Analisi Dati con R e Quarto</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./analisi-esplorativa.html" rel="" target="">
+ <span class="menu-text">Analisi Esplorativa</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./modelli-statistici.html" rel="" target="">
+ <span class="menu-text">Modelli Statistici</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./visualizzazioni.html" rel="" target="">
+ <span class="menu-text">Visualizzazioni</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./report-dinamico.html" rel="" target="">
+ <span class="menu-text">Report Dinamico</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./about.html" rel="" target="" aria-current="page">
+ <span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#informazioni-su-questo-sito" id="toc-informazioni-su-questo-sito" class="nav-link active" data-scroll-target="#informazioni-su-questo-sito">Informazioni su Questo Sito</a>
+  <ul class="collapse">
+  <li><a href="#che-cosè-quarto" id="toc-che-cosè-quarto" class="nav-link" data-scroll-target="#che-cosè-quarto">Che cos’è Quarto?</a></li>
+  <li><a href="#contenuti-del-sito" id="toc-contenuti-del-sito" class="nav-link" data-scroll-target="#contenuti-del-sito">Contenuti del Sito</a>
+  <ul class="collapse">
+  <li><a href="#home" id="toc-home" class="nav-link" data-scroll-target="#home">🏠 Home</a></li>
+  <li><a href="#analisi-esplorativa" id="toc-analisi-esplorativa" class="nav-link" data-scroll-target="#analisi-esplorativa">🔍 Analisi Esplorativa</a></li>
+  <li><a href="#modelli-statistici" id="toc-modelli-statistici" class="nav-link" data-scroll-target="#modelli-statistici">📈 Modelli Statistici</a></li>
+  <li><a href="#visualizzazioni" id="toc-visualizzazioni" class="nav-link" data-scroll-target="#visualizzazioni">🎨 Visualizzazioni</a></li>
+  <li><a href="#report-dinamico" id="toc-report-dinamico" class="nav-link" data-scroll-target="#report-dinamico">📊 Report Dinamico</a></li>
+  </ul></li>
+  <li><a href="#tecnologie-utilizzate" id="toc-tecnologie-utilizzate" class="nav-link" data-scroll-target="#tecnologie-utilizzate">Tecnologie Utilizzate</a></li>
+  <li><a href="#vantaggi-di-quarto" id="toc-vantaggi-di-quarto" class="nav-link" data-scroll-target="#vantaggi-di-quarto">Vantaggi di Quarto</a>
+  <ul class="collapse">
+  <li><a href="#riproducibilità" id="toc-riproducibilità" class="nav-link" data-scroll-target="#riproducibilità">🔄 Riproducibilità</a></li>
+  <li><a href="#facilità-duso" id="toc-facilità-duso" class="nav-link" data-scroll-target="#facilità-duso">🎯 Facilità d’Uso</a></li>
+  <li><a href="#versatilità-di-output" id="toc-versatilità-di-output" class="nav-link" data-scroll-target="#versatilità-di-output">🌐 Versatilità di Output</a></li>
+  <li><a href="#flessibilità" id="toc-flessibilità" class="nav-link" data-scroll-target="#flessibilità">🔧 Flessibilità</a></li>
+  <li><a href="#design-responsivo" id="toc-design-responsivo" class="nav-link" data-scroll-target="#design-responsivo">📱 Design Responsivo</a></li>
+  </ul></li>
+  <li><a href="#per-chi-è-utile-quarto" id="toc-per-chi-è-utile-quarto" class="nav-link" data-scroll-target="#per-chi-è-utile-quarto">Per Chi È Utile Quarto?</a></li>
+  <li><a href="#come-iniziare" id="toc-come-iniziare" class="nav-link" data-scroll-target="#come-iniziare">Come Iniziare</a></li>
+  <li><a href="#risorse-aggiuntive" id="toc-risorse-aggiuntive" class="nav-link" data-scroll-target="#risorse-aggiuntive">Risorse Aggiuntive</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">About</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="informazioni-su-questo-sito" class="level1">
+<h1>Informazioni su Questo Sito</h1>
+<p>Questo sito web è una dimostrazione completa delle potenzialità di <strong>Quarto</strong> per l’analisi dei dati e la comunicazione scientifica. È stato creato per mostrare come Quarto permetta di integrare seamlessly codice R, risultati statistici, visualizzazioni e narrativa in un unico documento web professionale.</p>
+<section id="che-cosè-quarto" class="level2">
+<h2 class="anchored" data-anchor-id="che-cosè-quarto">Che cos’è Quarto?</h2>
+<p><a href="https://quarto.org">Quarto</a> è un sistema di pubblicazione tecnica e scientifica open-source che permette di:</p>
+<ul>
+<li>📝 Scrivere contenuti in Markdown con blocchi di codice eseguibili</li>
+<li>🔬 Integrare R, Python, Julia e Observable JS</li>
+<li>📊 Creare visualizzazioni statiche e interattive</li>
+<li>🌐 Pubblicare su web, PDF, Word, PowerPoint e altri formati</li>
+<li>🔄 Garantire riproducibilità e aggiornamenti automatici</li>
+</ul>
+</section>
+<section id="contenuti-del-sito" class="level2">
+<h2 class="anchored" data-anchor-id="contenuti-del-sito">Contenuti del Sito</h2>
+<section id="home" class="level3">
+<h3 class="anchored" data-anchor-id="home">🏠 <a href="./index.html">Home</a></h3>
+<p>Introduzione alle capacità di Quarto con esempi base di integrazione codice-risultati.</p>
+</section>
+<section id="analisi-esplorativa" class="level3">
+<h3 class="anchored" data-anchor-id="analisi-esplorativa">🔍 <a href="./analisi-esplorativa.html">Analisi Esplorativa</a></h3>
+<p>Dimostrazione completa di: - Statistiche descrittive automatizzate - Visualizzazioni di distribuzione - Analisi delle correlazioni - Tabelle interattive - Pattern recognition nei dati</p>
+</section>
+<section id="modelli-statistici" class="level3">
+<h3 class="anchored" data-anchor-id="modelli-statistici">📈 <a href="./modelli-statistici.html">Modelli Statistici</a></h3>
+<p>Esempi di modellazione avanzata: - Regressione lineare semplice e multipla - Analisi della varianza (ANOVA) - Machine learning con Random Forest - Confronto automatico di modelli - Diagnostica e validazione</p>
+</section>
+<section id="visualizzazioni" class="level3">
+<h3 class="anchored" data-anchor-id="visualizzazioni">🎨 <a href="./visualizzazioni.html">Visualizzazioni</a></h3>
+<p>Showcase di tecniche di visualizzazione: - Grafici statici avanzati con ggplot2 - Visualizzazioni interattive con plotly - Dashboard composite con patchwork - Network e treemap specializzati - Integrazione multi-libreria</p>
+</section>
+<section id="report-dinamico" class="level3">
+<h3 class="anchored" data-anchor-id="report-dinamico">📊 <a href="./report-dinamico.html">Report Dinamico</a></h3>
+<p>Esempio di report che si adatta automaticamente: - Parametri configurabili - Contenuto condizionale - Calcoli in linea dinamici - Avvisi automatici basati sui dati - Metadati del documento</p>
+</section>
+</section>
+<section id="tecnologie-utilizzate" class="level2">
+<h2 class="anchored" data-anchor-id="tecnologie-utilizzate">Tecnologie Utilizzate</h2>
+<ul>
+<li><strong>Quarto</strong>: Sistema di pubblicazione principale</li>
+<li><strong>R</strong>: Linguaggio di programmazione per analisi</li>
+<li><strong>ggplot2</strong>: Visualizzazioni statiche</li>
+<li><strong>plotly</strong>: Grafici interattivi</li>
+<li><strong>DT</strong>: Tabelle interattive</li>
+<li><strong>dplyr</strong>: Manipolazione dati</li>
+<li><strong>knitr/kableExtra</strong>: Formattazione tabelle</li>
+<li><strong>Varie librerie specializzate</strong>: corrplot, randomForest, patchwork, etc.</li>
+</ul>
+</section>
+<section id="vantaggi-di-quarto" class="level2">
+<h2 class="anchored" data-anchor-id="vantaggi-di-quarto">Vantaggi di Quarto</h2>
+<section id="riproducibilità" class="level3">
+<h3 class="anchored" data-anchor-id="riproducibilità">🔄 Riproducibilità</h3>
+<p>Ogni risultato è generato dal codice, garantendo consistenza e permettendo facili aggiornamenti quando i dati cambiano.</p>
+</section>
+<section id="facilità-duso" class="level3">
+<h3 class="anchored" data-anchor-id="facilità-duso">🎯 Facilità d’Uso</h3>
+<p>Sintassi Markdown familiare con potenti estensioni per contenuti scientifici.</p>
+</section>
+<section id="versatilità-di-output" class="level3">
+<h3 class="anchored" data-anchor-id="versatilità-di-output">🌐 Versatilità di Output</h3>
+<p>Un singolo documento sorgente può generare siti web, PDF, presentazioni e altro.</p>
+</section>
+<section id="flessibilità" class="level3">
+<h3 class="anchored" data-anchor-id="flessibilità">🔧 Flessibilità</h3>
+<p>Supporto per multiple lingue di programmazione e possibilità di personalizzazione estrema.</p>
+</section>
+<section id="design-responsivo" class="level3">
+<h3 class="anchored" data-anchor-id="design-responsivo">📱 Design Responsivo</h3>
+<p>I siti generati sono automaticamente ottimizzati per desktop e mobile.</p>
+</section>
+</section>
+<section id="per-chi-è-utile-quarto" class="level2">
+<h2 class="anchored" data-anchor-id="per-chi-è-utile-quarto">Per Chi È Utile Quarto?</h2>
+<ul>
+<li><strong>Data Scientists</strong>: Per condividere analisi e insight</li>
+<li><strong>Ricercatori</strong>: Per paper riproducibili e supplementi online</li>
+<li><strong>Analisti Business</strong>: Per report automatizzati e dashboard</li>
+<li><strong>Educatori</strong>: Per materiali didattici interattivi</li>
+<li><strong>Consultenti</strong>: Per deliverable professionali ai clienti</li>
+</ul>
+</section>
+<section id="come-iniziare" class="level2">
+<h2 class="anchored" data-anchor-id="come-iniziare">Come Iniziare</h2>
+<ol type="1">
+<li><strong>Installa Quarto</strong>: Scarica da <a href="https://quarto.org/docs/get-started/">quarto.org</a></li>
+<li><strong>Configura R/RStudio</strong>: Assicurati di avere R e le librerie necessarie</li>
+<li><strong>Clona questo progetto</strong>: Usa questo sito come template di partenza</li>
+<li><strong>Personalizza</strong>: Modifica contenuti e stile secondo le tue esigenze</li>
+<li><strong>Pubblica</strong>: Deploy su GitHub Pages, Netlify, o altri servizi</li>
+</ol>
+</section>
+<section id="risorse-aggiuntive" class="level2">
+<h2 class="anchored" data-anchor-id="risorse-aggiuntive">Risorse Aggiuntive</h2>
+<ul>
+<li><a href="https://quarto.org/docs/">Documentazione Ufficiale Quarto</a></li>
+<li><a href="https://quarto.org/docs/gallery/">Galleria di Esempi</a></li>
+<li><a href="https://www.youtube.com/results?search_query=quarto+tutorial">Tutorial Video</a></li>
+<li><a href="https://github.com/quarto-dev/quarto-cli/discussions">Community Forum</a></li>
+</ul>
+<hr>
+<p><em>Questo sito dimostra solo una frazione delle possibilità di Quarto. La combinazione di semplicità d’uso e potenza lo rende lo strumento ideale per la comunicazione scientifica moderna.</em></p>
+
+
+<!-- -->
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "About"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu"># Informazioni su Questo Sito</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>Questo sito web è una dimostrazione completa delle potenzialità di **Quarto** per l'analisi dei dati e la comunicazione scientifica. È stato creato per mostrare come Quarto permetta di integrare seamlessly codice R, risultati statistici, visualizzazioni e narrativa in un unico documento web professionale.</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## Che cos'è Quarto?</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Quarto</span><span class="co">](https://quarto.org)</span> è un sistema di pubblicazione tecnica e scientifica open-source che permette di:</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>📝 Scrivere contenuti in Markdown con blocchi di codice eseguibili</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>🔬 Integrare R, Python, Julia e Observable JS</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>📊 Creare visualizzazioni statiche e interattive</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>🌐 Pubblicare su web, PDF, Word, PowerPoint e altri formati</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>🔄 Garantire riproducibilità e aggiornamenti automatici</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## Contenuti del Sito</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">### 🏠 [Home](index.qmd)</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>Introduzione alle capacità di Quarto con esempi base di integrazione codice-risultati.</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">### 🔍 [Analisi Esplorativa](analisi-esplorativa.qmd)</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>Dimostrazione completa di:</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Statistiche descrittive automatizzate</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Visualizzazioni di distribuzione</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Analisi delle correlazioni</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Tabelle interattive</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Pattern recognition nei dati</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="fu">### 📈 [Modelli Statistici](modelli-statistici.qmd)</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>Esempi di modellazione avanzata:</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Regressione lineare semplice e multipla</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Analisi della varianza (ANOVA)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Machine learning con Random Forest</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Confronto automatico di modelli</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Diagnostica e validazione</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="fu">### 🎨 [Visualizzazioni](visualizzazioni.qmd)</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>Showcase di tecniche di visualizzazione:</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Grafici statici avanzati con ggplot2</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Visualizzazioni interattive con plotly</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Dashboard composite con patchwork</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Network e treemap specializzati</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Integrazione multi-libreria</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="fu">### 📊 [Report Dinamico](report-dinamico.qmd)</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>Esempio di report che si adatta automaticamente:</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Parametri configurabili</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Contenuto condizionale</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Calcoli in linea dinamici</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Avvisi automatici basati sui dati</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Metadati del documento</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tecnologie Utilizzate</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Quarto**: Sistema di pubblicazione principale</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**R**: Linguaggio di programmazione per analisi</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**ggplot2**: Visualizzazioni statiche</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**plotly**: Grafici interattivi</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**DT**: Tabelle interattive</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**dplyr**: Manipolazione dati</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**knitr/kableExtra**: Formattazione tabelle</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Varie librerie specializzate**: corrplot, randomForest, patchwork, etc.</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="fu">## Vantaggi di Quarto</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="fu">### 🔄 Riproducibilità</span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>Ogni risultato è generato dal codice, garantendo consistenza e permettendo facili aggiornamenti quando i dati cambiano.</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="fu">### 🎯 Facilità d'Uso</span></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>Sintassi Markdown familiare con potenti estensioni per contenuti scientifici.</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="fu">### 🌐 Versatilità di Output</span></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>Un singolo documento sorgente può generare siti web, PDF, presentazioni e altro.</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="fu">### 🔧 Flessibilità</span></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>Supporto per multiple lingue di programmazione e possibilità di personalizzazione estrema.</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="fu">### 📱 Design Responsivo</span></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>I siti generati sono automaticamente ottimizzati per desktop e mobile.</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="fu">## Per Chi È Utile Quarto?</span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Data Scientists**: Per condividere analisi e insight</span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Ricercatori**: Per paper riproducibili e supplementi online</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Analisti Business**: Per report automatizzati e dashboard</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Educatori**: Per materiali didattici interattivi</span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Consultenti**: Per deliverable professionali ai clienti</span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a><span class="fu">## Come Iniziare</span></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Installa Quarto**: Scarica da <span class="co">[</span><span class="ot">quarto.org</span><span class="co">](https://quarto.org/docs/get-started/)</span></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Configura R/RStudio**: Assicurati di avere R e le librerie necessarie</span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Clona questo progetto**: Usa questo sito come template di partenza</span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Personalizza**: Modifica contenuti e stile secondo le tue esigenze</span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**Pubblica**: Deploy su GitHub Pages, Netlify, o altri servizi</span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="fu">## Risorse Aggiuntive</span></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Documentazione Ufficiale Quarto</span><span class="co">](https://quarto.org/docs/)</span></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Galleria di Esempi</span><span class="co">](https://quarto.org/docs/gallery/)</span></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Tutorial Video</span><span class="co">](https://www.youtube.com/results?search_query=quarto+tutorial)</span></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Community Forum</span><span class="co">](https://github.com/quarto-dev/quarto-cli/discussions)</span></span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>*Questo sito dimostra solo una frazione delle possibilità di Quarto. La combinazione di semplicità d'uso e potenza lo rende lo strumento ideale per la comunicazione scientifica moderna.*</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+</body></html>

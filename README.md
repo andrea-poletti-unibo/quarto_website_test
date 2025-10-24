@@ -12,7 +12,7 @@ Un sito web interattivo che dimostra le potenzialità di Quarto per l'analisi de
 
 ## 🔗 Demo Live
 
-Il sito è disponibile online su: [https://tuousername.github.io/repository-name](https://tuousername.github.io/repository-name)
+Il sito è disponibile online su: [https://andrea-poletti-unibo.github.io/quarto_website_test](https://andrea-poletti-unibo.github.io/quarto_website_test)
 
 ## 🛠️ Tecnologie Utilizzate
 
@@ -31,8 +31,9 @@ Il sito è disponibile online su: [https://tuousername.github.io/repository-name
 
 ### Installazione Locale
 ```bash
-git clone https://github.com/tuousername/repository-name.git
-cd repository-name
+git clone https://github.com/andrea-poletti-unibo/quarto_website_test.git
+cd quarto_website_test
+Rscript install_packages.R
 quarto render
 quarto preview
 ```

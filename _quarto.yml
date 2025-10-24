@@ -3,7 +3,7 @@ project:
 
 website:
   title: "Analisi Dati con R e Quarto"
-  site-url: "https://github.com/andrea-poletti-unibo/quarto_website_test"
+  site-url: "https://andrea-poletti-unibo.github.io/quarto_website_test"
   navbar:
     left:
       - href: index.qmd

@@ -30,9 +30,10 @@ jobs:
           r-version: '4.3.1'
 
       - name: Install R Dependencies
-        uses: r-lib/actions/setup-renv@v2
-        with:
-          cache-version: 1
+        run: |
+          install.packages(c("ggplot2", "dplyr", "plotly", "DT", "knitr", "kableExtra", 
+                            "tidyr", "tibble", "broom", "car", "viridis"))
+        shell: Rscript {0}
 
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2

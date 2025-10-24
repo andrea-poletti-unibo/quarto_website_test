@@ -1,0 +1,109 @@
+---
+title: "About"
+---
+
+# Informazioni su Questo Sito
+
+Questo sito web è una dimostrazione completa delle potenzialità di **Quarto** per l'analisi dei dati e la comunicazione scientifica. È stato creato per mostrare come Quarto permetta di integrare seamlessly codice R, risultati statistici, visualizzazioni e narrativa in un unico documento web professionale.
+
+## Che cos'è Quarto?
+
+[Quarto](https://quarto.org) è un sistema di pubblicazione tecnica e scientifica open-source che permette di:
+
+- 📝 Scrivere contenuti in Markdown con blocchi di codice eseguibili
+- 🔬 Integrare R, Python, Julia e Observable JS
+- 📊 Creare visualizzazioni statiche e interattive
+- 🌐 Pubblicare su web, PDF, Word, PowerPoint e altri formati
+- 🔄 Garantire riproducibilità e aggiornamenti automatici
+
+## Contenuti del Sito
+
+### 🏠 [Home](index.qmd)
+Introduzione alle capacità di Quarto con esempi base di integrazione codice-risultati.
+
+### 🔍 [Analisi Esplorativa](analisi-esplorativa.qmd)
+Dimostrazione completa di:
+- Statistiche descrittive automatizzate
+- Visualizzazioni di distribuzione
+- Analisi delle correlazioni
+- Tabelle interattive
+- Pattern recognition nei dati
+
+### 📈 [Modelli Statistici](modelli-statistici.qmd)
+Esempi di modellazione avanzata:
+- Regressione lineare semplice e multipla
+- Analisi della varianza (ANOVA)
+- Machine learning con Random Forest
+- Confronto automatico di modelli
+- Diagnostica e validazione
+
+### 🎨 [Visualizzazioni](visualizzazioni.qmd)
+Showcase di tecniche di visualizzazione:
+- Grafici statici avanzati con ggplot2
+- Visualizzazioni interattive con plotly
+- Dashboard composite con patchwork
+- Network e treemap specializzati
+- Integrazione multi-libreria
+
+### 📊 [Report Dinamico](report-dinamico.qmd)
+Esempio di report che si adatta automaticamente:
+- Parametri configurabili
+- Contenuto condizionale
+- Calcoli in linea dinamici
+- Avvisi automatici basati sui dati
+- Metadati del documento
+
+## Tecnologie Utilizzate
+
+- **Quarto**: Sistema di pubblicazione principale
+- **R**: Linguaggio di programmazione per analisi
+- **ggplot2**: Visualizzazioni statiche
+- **plotly**: Grafici interattivi
+- **DT**: Tabelle interattive
+- **dplyr**: Manipolazione dati
+- **knitr/kableExtra**: Formattazione tabelle
+- **Varie librerie specializzate**: corrplot, randomForest, patchwork, etc.
+
+## Vantaggi di Quarto
+
+### 🔄 Riproducibilità
+Ogni risultato è generato dal codice, garantendo consistenza e permettendo facili aggiornamenti quando i dati cambiano.
+
+### 🎯 Facilità d'Uso
+Sintassi Markdown familiare con potenti estensioni per contenuti scientifici.
+
+### 🌐 Versatilità di Output
+Un singolo documento sorgente può generare siti web, PDF, presentazioni e altro.
+
+### 🔧 Flessibilità
+Supporto per multiple lingue di programmazione e possibilità di personalizzazione estrema.
+
+### 📱 Design Responsivo
+I siti generati sono automaticamente ottimizzati per desktop e mobile.
+
+## Per Chi È Utile Quarto?
+
+- **Data Scientists**: Per condividere analisi e insight
+- **Ricercatori**: Per paper riproducibili e supplementi online
+- **Analisti Business**: Per report automatizzati e dashboard
+- **Educatori**: Per materiali didattici interattivi
+- **Consultenti**: Per deliverable professionali ai clienti
+
+## Come Iniziare
+
+1. **Installa Quarto**: Scarica da [quarto.org](https://quarto.org/docs/get-started/)
+2. **Configura R/RStudio**: Assicurati di avere R e le librerie necessarie
+3. **Clona questo progetto**: Usa questo sito come template di partenza
+4. **Personalizza**: Modifica contenuti e stile secondo le tue esigenze
+5. **Pubblica**: Deploy su GitHub Pages, Netlify, o altri servizi
+
+## Risorse Aggiuntive
+
+- [Documentazione Ufficiale Quarto](https://quarto.org/docs/)
+- [Galleria di Esempi](https://quarto.org/docs/gallery/)
+- [Tutorial Video](https://www.youtube.com/results?search_query=quarto+tutorial)
+- [Community Forum](https://github.com/quarto-dev/quarto-cli/discussions)
+
+---
+
+*Questo sito dimostra solo una frazione delle possibilità di Quarto. La combinazione di semplicità d'uso e potenza lo rende lo strumento ideale per la comunicazione scientifica moderna.*

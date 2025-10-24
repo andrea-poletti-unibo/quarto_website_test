@@ -1,0 +1,5 @@
+{
+  "buildCommand": "quarto render",
+  "outputDirectory": "_site",
+  "installCommand": "curl -LsSf https://get.quarto.org/latest/download.sh | sh"
+}

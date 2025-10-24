@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: quarto-site
+    env: static
+    buildCommand: |
+      curl -LsSf https://get.quarto.org/latest/download.sh | sh
+      quarto render
+    staticPublishPath: _site

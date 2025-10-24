@@ -1,0 +1,256 @@
+---
+title: "Analisi Esplorativa dei Dati"
+format: 
+  html:
+    code-fold: show
+    toc: true
+---
+
+# Introduzione all'Analisi Esplorativa
+
+L'analisi esplorativa dei dati (EDA) è un approccio fondamentale per comprendere la struttura, i pattern e le caratteristiche dei nostri dati prima di procedere con analisi più complesse.
+
+## Preparazione dei Dati
+
+```{r setup}
+#| warning: false
+#| message: false
+
+# Carica le librerie
+library(ggplot2)
+library(dplyr)
+library(plotly)
+library(DT)
+library(knitr)
+library(kableExtra)
+library(tidyr)
+library(tibble)  # Per rownames_to_column
+
+# Corrplot se disponibile
+if(require(corrplot, quietly = TRUE)) {
+  use_corrplot <- TRUE
+} else {
+  use_corrplot <- FALSE
+  cat("Nota: corrplot non disponibile, useremo ggplot per correlazioni\n")
+}
+
+# Imposta il tema per i grafici
+theme_set(theme_minimal())
+```
+
+```{r data-prep}
+# Utilizziamo il dataset mtcars integrato in R
+data("mtcars")
+
+# Aggiungiamo alcune variabili categoriche
+mtcars_extended <- mtcars %>%
+  mutate(
+    efficiency = case_when(
+      mpg >= 25 ~ "Alta",
+      mpg >= 20 ~ "Media",
+      TRUE ~ "Bassa"
+    ),
+    engine_type = ifelse(vs == 1, "V-engine", "Straight"),
+    transmission = ifelse(am == 1, "Manuale", "Automatico"),
+    car_name = rownames(mtcars)
+  ) %>%
+  relocate(car_name, .before = mpg)
+
+# Mostra le prime righe
+head(mtcars_extended) %>%
+  kable(caption = "Prime 6 righe del dataset mtcars esteso") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+## Statistiche Descrittive
+
+### Panoramica Generale
+
+```{r summary-stats}
+# Statistiche descrittive per le variabili numeriche
+summary_stats <- mtcars_extended %>%
+  select(mpg, hp, wt, qsec, disp, drat) %>%
+  summary()
+
+print(summary_stats)
+```
+
+### Tabella Dettagliata delle Statistiche
+
+```{r detailed-stats}
+#| label: tbl-stats
+#| tbl-cap: "Statistiche descrittive dettagliate"
+
+stats_table <- mtcars_extended %>%
+  select(mpg, hp, wt, qsec, disp) %>%
+  summarise(
+    across(everything(), list(
+      Media = ~round(mean(.x, na.rm = TRUE), 2),
+      Mediana = ~round(median(.x, na.rm = TRUE), 2),
+      `Dev.Std` = ~round(sd(.x, na.rm = TRUE), 2),
+      Min = ~round(min(.x, na.rm = TRUE), 2),
+      Max = ~round(max(.x, na.rm = TRUE), 2)
+    ), .names = "{.col}_{.fn}")
+  ) %>%
+  pivot_longer(everything(), names_to = "stat", values_to = "value") %>%
+  separate(stat, into = c("variabile", "statistica"), sep = "_") %>%
+  pivot_wider(names_from = statistica, values_from = value)
+
+stats_table %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+## Distribuzione delle Variabili
+
+### Istogrammi delle Variabili Principali
+
+```{r histograms}
+#| fig-height: 8
+#| fig-cap: "Distribuzione delle variabili principali"
+
+# Variabili da analizzare
+vars_to_plot <- c("mpg", "hp", "wt", "qsec")
+
+# Crea istogrammi separati
+for(var in vars_to_plot) {
+  p <- ggplot(mtcars_extended, aes(x = .data[[var]])) +
+    geom_histogram(bins = 10, fill = "steelblue", alpha = 0.7, color = "white") +
+    labs(title = paste("Distribuzione di", var),
+         x = var, y = "Frequenza") +
+    theme_minimal()
+  print(p)
+}
+```
+
+### Boxplot per Categoria
+
+```{r boxplots}
+#| fig-cap: "Confronto distribuzione MPG per tipo di trasmissione"
+
+ggplot(mtcars_extended, aes(x = transmission, y = mpg, fill = transmission)) +
+  geom_boxplot(alpha = 0.7) +
+  geom_jitter(width = 0.2, alpha = 0.5) +
+  scale_fill_brewer(type = "qual", palette = "Set2") +
+  labs(title = "Distribuzione del Consumo per Tipo di Trasmissione",
+       x = "Tipo di Trasmissione", 
+       y = "Miglia per Gallone (MPG)",
+       fill = "Trasmissione") +
+  theme(legend.position = "none")
+```
+
+## Analisi delle Correlazioni
+
+### Matrice di Correlazione
+
+```{r correlation-matrix}
+#| fig-cap: "Matrice di correlazione tra le variabili numeriche"
+
+# Seleziona variabili numeriche
+numeric_vars <- mtcars_extended %>%
+  select(mpg, cyl, disp, hp, drat, wt, qsec, vs, am, gear, carb)
+
+# Calcola correlazioni
+cor_matrix <- cor(numeric_vars)
+
+if(use_corrplot) {
+  # Visualizza con corrplot se disponibile
+  corrplot(cor_matrix, method = "color", type = "upper", 
+           order = "hclust", tl.cex = 0.8, tl.col = "black",
+           col = colorRampPalette(c("#67001F", "#B2182B", "#D6604D", 
+                                   "#F4A582", "#FDDBC7", "#FFFFFF", 
+                                   "#D1E5F0", "#92C5DE", "#4393C3", 
+                                   "#2166AC", "#053061"))(200))
+} else {
+  # Alternativa con ggplot
+  cor_long <- cor_matrix %>%
+    as.data.frame() %>%
+    rownames_to_column("var1") %>%
+    pivot_longer(-var1, names_to = "var2", values_to = "correlation")
+  
+  ggplot(cor_long, aes(x = var1, y = var2, fill = correlation)) +
+    geom_tile(color = "white") +
+    scale_fill_gradient2(low = "blue", mid = "white", high = "red", 
+                         midpoint = 0, name = "Correlazione") +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1),
+          axis.title = element_blank()) +
+    labs(title = "Matrice di Correlazione")
+}
+```
+
+### Correlazioni più Forti
+
+```{r strong-correlations}
+# Trova le correlazioni più forti
+cor_df <- cor_matrix %>%
+  as.data.frame() %>%
+  rownames_to_column("var1") %>%
+  pivot_longer(-var1, names_to = "var2", values_to = "correlation") %>%
+  filter(var1 != var2) %>%
+  mutate(abs_cor = abs(correlation)) %>%
+  arrange(desc(abs_cor)) %>%
+  slice_head(n = 10)
+
+cor_df %>%
+  select(-abs_cor) %>%
+  mutate(correlation = round(correlation, 3)) %>%
+  kable(caption = "Le 10 correlazioni più forti tra le variabili") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+## Visualizzazioni Interattive
+
+### Scatter Plot Interattivo
+
+```{r interactive-scatter}
+#| fig-cap: "Relazione interattiva tra peso e consumo"
+
+# Versione semplificata del grafico interattivo
+p <- ggplot(mtcars_extended, aes(x = wt, y = mpg, color = transmission)) +
+  geom_point(size = 3, alpha = 0.7) +
+  geom_smooth(method = "lm", se = TRUE, alpha = 0.3) +
+  scale_color_brewer(type = "qual", palette = "Set1") +
+  labs(title = "Relazione tra Peso e Consumo di Carburante",
+       x = "Peso (1000 lbs)", 
+       y = "Miglia per Gallone (MPG)",
+       color = "Trasmissione") +
+  theme_minimal()
+
+# Prova a renderlo interattivo, altrimenti mostra statico
+tryCatch({
+  ggplotly(p)
+}, error = function(e) {
+  print(p)
+  cat("Nota: Visualizzazione statica mostrata al posto di quella interattiva\n")
+})
+```
+
+## Tabella Interattiva Completa
+
+```{r interactive-table}
+# Crea una tabella interattiva con tutti i dati
+mtcars_extended %>%
+  select(car_name, mpg, hp, wt, efficiency, transmission, engine_type) %>%
+  datatable(
+    caption = "Dataset completo con filtri e ricerca",
+    options = list(
+      pageLength = 10,
+      scrollX = TRUE,
+      filter = "top"
+    ),
+    filter = "top"
+  ) %>%
+  formatRound(columns = c("mpg", "hp", "wt"), digits = 1)
+```
+
+## Conclusioni dell'Analisi Esplorativa
+
+Dall'analisi esplorativa emergono diversi pattern interessanti:
+
+1. **Relazione Peso-Consumo**: Esiste una forte correlazione negativa (-0.87) tra peso e consumo
+2. **Efficienza per Trasmissione**: Le auto con trasmissione manuale tendono ad essere più efficienti
+3. **Potenza vs Efficienza**: Auto più potenti tendono a consumare di più
+4. **Distribuzione Variabili**: La maggior parte delle variabili mostra distribuzioni ragionevolmente normali
+
+Questi insight guideranno le analisi successive e la costruzione di modelli predittivi.

@@ -1,0 +1,30 @@
+project:
+  type: website
+
+website:
+  title: "Analisi Dati con R e Quarto"
+  site-url: "https://tuousername.github.io/repository-name"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: analisi-esplorativa.qmd
+        text: "Analisi Esplorativa"
+      - href: modelli-statistici.qmd
+        text: "Modelli Statistici"
+      - href: visualizzazioni.qmd
+        text: "Visualizzazioni"
+      - href: report-dinamico.qmd
+        text: "Report Dinamico"
+      - about.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    code-fold: true
+    code-tools: true
+
+
+

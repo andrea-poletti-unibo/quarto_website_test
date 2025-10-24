@@ -1,0 +1,12 @@
+[build]
+  publish = "_site"
+  command = "quarto render"
+
+[build.environment]
+  R_VERSION = "4.3.1"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"

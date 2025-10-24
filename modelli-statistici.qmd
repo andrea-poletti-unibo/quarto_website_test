@@ -1,0 +1,362 @@
+---
+title: "Modelli Statistici e Predittivi"
+format: 
+  html:
+    code-fold: show
+    toc: true
+---
+
+# Introduzione ai Modelli Statistici
+
+In questa sezione esploreremo diversi approcci di modellazione statistica utilizzando R. Vedremo come Quarto facilita la presentazione di risultati statistici complessi in modo chiaro e professionale.
+
+## Preparazione dei Dati
+
+```{r setup}
+#| warning: false
+#| message: false
+
+# Carica le librerie necessarie
+library(ggplot2)
+library(dplyr)
+library(broom)
+library(knitr)
+library(kableExtra)
+library(plotly)
+library(car)
+library(tibble)
+
+# Librerie opzionali con controllo
+if(require(randomForest, quietly = TRUE)) {
+  use_rf <- TRUE
+} else {
+  use_rf <- FALSE
+  cat("Nota: randomForest non disponibile\n")
+}
+
+if(require(caret, quietly = TRUE)) {
+  use_caret <- TRUE
+} else {
+  use_caret <- FALSE
+  cat("Nota: caret non disponibile\n")
+}
+
+# Prepara i dati
+data("mtcars")
+mtcars_clean <- mtcars %>%
+  mutate(
+    transmission = factor(ifelse(am == 1, "Manuale", "Automatico")),
+    engine_type = factor(ifelse(vs == 1, "V-engine", "Straight")),
+    car_name = rownames(mtcars)
+  )
+```
+
+## Modello di Regressione Lineare Semplice
+
+### Predizione del Consumo basata sul Peso
+
+```{r simple-linear}
+# Modello lineare semplice
+model_simple <- lm(mpg ~ wt, data = mtcars_clean)
+
+# Riassunto del modello
+summary(model_simple)
+```
+
+### Visualizzazione del Modello
+
+```{r simple-model-plot}
+#| fig-cap: "Modello di regressione lineare: MPG vs Peso"
+
+# Crea predizioni per la linea di regressione
+predictions <- predict(model_simple, interval = "confidence")
+plot_data <- cbind(mtcars_clean, predictions)
+
+ggplot(plot_data, aes(x = wt, y = mpg)) +
+  geom_point(size = 3, alpha = 0.7, color = "steelblue") +
+  geom_line(aes(y = fit), color = "red", size = 1) +
+  geom_ribbon(aes(ymin = lwr, ymax = upr), alpha = 0.2, fill = "red") +
+  labs(title = "Regressione Lineare: Consumo vs Peso",
+       subtitle = paste("R² =", round(summary(model_simple)$r.squared, 3)),
+       x = "Peso (1000 lbs)", 
+       y = "Miglia per Gallone (MPG)") +
+  theme_minimal()
+```
+
+### Diagnostica del Modello
+
+```{r model-diagnostics}
+#| fig-height: 8
+#| fig-cap: "Grafici diagnostici per il modello lineare"
+
+# Crea grafici diagnostici
+par(mfrow = c(2, 2))
+plot(model_simple)
+par(mfrow = c(1, 1))
+```
+
+## Modello di Regressione Multipla
+
+### Modello Completo
+
+```{r multiple-regression}
+# Modello con multiple variabili
+model_multiple <- lm(mpg ~ wt + hp + cyl + transmission, data = mtcars_clean)
+
+# Riassunto del modello
+summary(model_multiple)
+```
+
+### Tabella dei Coefficienti Formattata
+
+```{r coefficients-table}
+#| label: tbl-coefficients
+#| tbl-cap: "Coefficienti del modello di regressione multipla"
+
+# Crea una tabella formattata dei coefficienti
+tidy(model_multiple, conf.int = TRUE) %>%
+  mutate(
+    across(where(is.numeric), ~round(.x, 4)),
+    significance = case_when(
+      p.value < 0.001 ~ "***",
+      p.value < 0.01 ~ "**",
+      p.value < 0.05 ~ "*",
+      TRUE ~ ""
+    )
+  ) %>%
+  kable(
+    col.names = c("Termine", "Stima", "Errore Std", "t-statistic", 
+                  "p-value", "CI inf", "CI sup", "Sign."),
+    caption = "Coefficienti del modello con intervalli di confidenza al 95%"
+  ) %>%
+  kable_styling(bootstrap_options = c("striped", "hover")) %>%
+  footnote(general = "Significatività: *** p<0.001, ** p<0.01, * p<0.05")
+```
+
+### Confronto tra Modelli
+
+```{r model-comparison}
+# Confronta i modelli
+anova_result <- anova(model_simple, model_multiple)
+
+# Metriche di performance
+model_metrics <- data.frame(
+  Modello = c("Semplice (peso)", "Multiplo"),
+  R_quadrato = c(summary(model_simple)$r.squared, 
+                 summary(model_multiple)$r.squared),
+  R_quadrato_adj = c(summary(model_simple)$adj.r.squared, 
+                     summary(model_multiple)$adj.r.squared),
+  AIC = c(AIC(model_simple), AIC(model_multiple)),
+  RMSE = c(sqrt(mean(residuals(model_simple)^2)),
+           sqrt(mean(residuals(model_multiple)^2)))
+) %>%
+  mutate(across(where(is.numeric), ~round(.x, 4)))
+
+model_metrics %>%
+  kable(caption = "Confronto delle metriche di performance") %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+## Analisi della Varianza (ANOVA)
+
+### Effetto del Tipo di Trasmissione
+
+```{r anova-analysis}
+# ANOVA per il tipo di trasmissione
+anova_transmission <- aov(mpg ~ transmission, data = mtcars_clean)
+summary(anova_transmission)
+
+# Test post-hoc (anche se abbiamo solo 2 gruppi)
+TukeyHSD(anova_transmission)
+```
+
+### Visualizzazione ANOVA
+
+```{r anova-plot}
+#| fig-cap: "Confronto MPG per tipo di trasmissione con test statistico"
+
+# Calcola statistiche per il plot
+summary_stats <- mtcars_clean %>%
+  group_by(transmission) %>%
+  summarise(
+    mean_mpg = mean(mpg),
+    sd_mpg = sd(mpg),
+    n = n(),
+    se = sd_mpg / sqrt(n)
+  )
+
+# Test t per confronto
+t_test_result <- t.test(mpg ~ transmission, data = mtcars_clean)
+
+ggplot(mtcars_clean, aes(x = transmission, y = mpg, fill = transmission)) +
+  geom_boxplot(alpha = 0.7) +
+  geom_jitter(width = 0.2, alpha = 0.6) +
+  stat_summary(fun = mean, geom = "point", shape = 23, size = 3, 
+               fill = "white", color = "black") +
+  scale_fill_brewer(type = "qual", palette = "Set2") +
+  labs(title = "Confronto del Consumo per Tipo di Trasmissione",
+       subtitle = paste("t-test p-value =", round(t_test_result$p.value, 4)),
+       x = "Tipo di Trasmissione", 
+       y = "Miglia per Gallone (MPG)") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+## Modello di Machine Learning: Random Forest
+
+```{r random-forest}
+#| warning: false
+
+# Prepara i dati indipendentemente dalla disponibilità delle librerie
+set.seed(123)
+n_total <- nrow(mtcars_clean)
+train_size <- floor(0.7 * n_total)
+train_indices <- sample(seq_len(n_total), size = train_size)
+
+train_data <- mtcars_clean[train_indices, ]
+test_data <- mtcars_clean[-train_indices, ]
+
+if(use_rf && use_caret) {
+  # Addestra Random Forest
+  rf_model <- randomForest(mpg ~ wt + hp + cyl + disp + drat + qsec, 
+                          data = train_data, 
+                          ntree = 500,
+                          importance = TRUE)
+  
+  print(rf_model)
+  rf_available <- TRUE
+} else {
+  cat("Random Forest non disponibile - librerie mancanti\n")
+  cat("Continuo con solo i modelli lineari\n")
+  rf_available <- FALSE
+}
+```
+
+### Importanza delle Variabili
+
+```{r variable-importance}
+#| fig-cap: "Importanza delle variabili nel modello Random Forest"
+
+if(rf_available) {
+  # Estrai importanza delle variabili
+  importance_data <- importance(rf_model) %>%
+    as.data.frame() %>%
+    rownames_to_column("Variable") %>%
+    arrange(desc(`%IncMSE`))
+  
+  # Plot importanza
+  ggplot(importance_data, aes(x = reorder(Variable, `%IncMSE`), y = `%IncMSE`)) +
+    geom_col(fill = "steelblue", alpha = 0.7) +
+    coord_flip() +
+    labs(title = "Importanza delle Variabili - Random Forest",
+         x = "Variabili", 
+         y = "% Aumento MSE") +
+    theme_minimal()
+} else {
+  cat("Random Forest non disponibile per analisi importanza variabili\n")
+}
+```
+
+### Performance del Modello
+
+```{r model-performance}
+if(rf_available) {
+  # Predizioni sui dati di test
+  rf_predictions <- predict(rf_model, test_data)
+  
+  # Calcola metriche di performance
+  performance_metrics <- data.frame(
+    Metric = c("RMSE", "MAE", "R²"),
+    Value = c(
+      sqrt(mean((test_data$mpg - rf_predictions)^2)),
+      mean(abs(test_data$mpg - rf_predictions)),
+      cor(test_data$mpg, rf_predictions)^2
+    )
+  ) %>%
+    mutate(Value = round(Value, 4))
+  
+  performance_metrics %>%
+    kable(caption = "Metriche di performance del Random Forest sui dati di test") %>%
+    kable_styling(bootstrap_options = c("striped", "hover"))
+} else {
+  cat("Random Forest non disponibile per valutazione performance\n")
+}
+```
+
+### Confronto Predizioni vs Valori Reali
+
+```{r predictions-plot}
+#| fig-cap: "Confronto tra predizioni e valori reali"
+
+if(rf_available) {
+  # Crea dataframe per il plot
+  comparison_data <- data.frame(
+    Actual = test_data$mpg,
+    Predicted = rf_predictions,
+    Car = test_data$car_name
+  )
+  
+  ggplot(comparison_data, aes(x = Actual, y = Predicted)) +
+    geom_point(size = 3, alpha = 0.7, color = "steelblue") +
+    geom_abline(slope = 1, intercept = 0, color = "red", linetype = "dashed") +
+    labs(title = "Predizioni vs Valori Reali - Random Forest",
+         x = "MPG Reale", 
+         y = "MPG Predetto") +
+    theme_minimal()
+} else {
+  cat("Random Forest non disponibile per confronto predizioni\n")
+}
+```
+
+## Confronto Finale dei Modelli
+
+```{r final-comparison}
+# Predizioni del modello lineare sui dati di test (sempre disponibile)
+lm_predictions <- predict(model_multiple, test_data)
+
+if(rf_available) {
+  # Confronto con Random Forest
+  final_comparison <- data.frame(
+    Modello = c("Regressione Lineare", "Random Forest"),
+    RMSE = c(
+      sqrt(mean((test_data$mpg - lm_predictions)^2)),
+      sqrt(mean((test_data$mpg - rf_predictions)^2))
+    ),
+    R_quadrato = c(
+      cor(test_data$mpg, lm_predictions)^2,
+      cor(test_data$mpg, rf_predictions)^2
+    )
+  ) %>%
+    mutate(across(where(is.numeric), ~round(.x, 4)))
+  
+  final_comparison %>%
+    kable(caption = "Confronto finale delle performance sui dati di test") %>%
+    kable_styling(bootstrap_options = c("striped", "hover"))
+} else {
+  # Solo modello lineare
+  lm_performance <- data.frame(
+    Modello = "Regressione Lineare",
+    RMSE = sqrt(mean((test_data$mpg - lm_predictions)^2)),
+    R_quadrato = cor(test_data$mpg, lm_predictions)^2
+  ) %>%
+    mutate(across(where(is.numeric), ~round(.x, 4)))
+  
+  lm_performance %>%
+    kable(caption = "Performance del modello lineare sui dati di test") %>%
+    kable_styling(bootstrap_options = c("striped", "hover"))
+}
+```
+
+## Conclusioni
+
+L'analisi dei modelli statistici rivela:
+
+1. **Regressione Lineare**: Il peso è il predittore più forte del consumo (R² = `r round(summary(model_simple)$r.squared, 3)`)
+
+2. **Modello Multiplo**: Aggiungendo variabili miglioriamo leggermente la predizione (R² = `r round(summary(model_multiple)$r.squared, 3)`)
+
+3. **Random Forest**: Mostra performance simili ma con maggiore robustezza alle assunzioni
+
+4. **Variabile Chiave**: Il peso rimane il fattore più importante in tutti i modelli
+
+Questi risultati confermano l'intuizione fisica che auto più pesanti consumano più carburante, con Quarto che permette di presentare i risultati in modo chiaro e professionale.
